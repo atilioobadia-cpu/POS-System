@@ -1,32 +1,87 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Register</h2>
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        
-        <div class="mb-3">
-            {{ form.username.label(class="form-label") }}
-            {{ form.username(class="form-control") }}
-        </div>
+<div class="row justify-content-center" style="margin-top: 4rem;">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-body" style="padding: 2.5rem;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <i class="fas fa-user-plus" style="font-size: 2.5rem; color: #000000;"></i>
+                    <h2 style="margin-top: 1rem; color: #000000; font-weight: 700;">Create Account</h2>
+                    <p style="color: #666666; font-size: 0.875rem;">Join the POS System</p>
+                </div>
 
-        <div class="mb-3">
-            {{ form.email.label(class="form-label") }}
-            {{ form.email(class="form-control") }}
-        </div>
+                <form method="POST" action="" novalidate>
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-3">
+                        {{ form.username.label(class="form-label") }}
+                        {% if form.username.errors %}
+                            {{ form.username(class="form-control", style="border-color: #dc3545;") }}
+                            <div class="invalid-feedback d-block" style="color: #dc3545; font-size: 0.875rem;">
+                                {% for error in form.username.errors %}
+                                    <i class="fas fa-exclamation-circle"></i> {{ error }}<br>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.username(class="form-control") }}
+                        {% endif %}
+                    </div>
 
-        <div class="mb-3">
-            {{ form.password.label(class="form-label") }}
-            {{ form.password(class="form-control") }}
-        </div>
+                    <div class="mb-3">
+                        {{ form.email.label(class="form-label") }}
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control", style="border-color: #dc3545;") }}
+                            <div class="invalid-feedback d-block" style="color: #dc3545; font-size: 0.875rem;">
+                                {% for error in form.email.errors %}
+                                    <i class="fas fa-exclamation-circle"></i> {{ error }}<br>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.email(class="form-control") }}
+                        {% endif %}
+                    </div>
 
-        <div class="mb-3">
-            {{ form.confirm_password.label(class="form-label") }}
-            {{ form.confirm_password(class="form-control") }}
-        </div>
+                    <div class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {% if form.password.errors %}
+                            {{ form.password(class="form-control", style="border-color: #dc3545;") }}
+                            <div class="invalid-feedback d-block" style="color: #dc3545; font-size: 0.875rem;">
+                                {% for error in form.password.errors %}
+                                    <i class="fas fa-exclamation-circle"></i> {{ error }}<br>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.password(class="form-control") }}
+                        {% endif %}
+                    </div>
 
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
+                    <div class="mb-3">
+                        {{ form.confirm_password.label(class="form-label") }}
+                        {% if form.confirm_password.errors %}
+                            {{ form.confirm_password(class="form-control", style="border-color: #dc3545;") }}
+                            <div class="invalid-feedback d-block" style="color: #dc3545; font-size: 0.875rem;">
+                                {% for error in form.confirm_password.errors %}
+                                    <i class="fas fa-exclamation-circle"></i> {{ error }}<br>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.confirm_password(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100" style="padding: 0.625rem; font-weight: 600;">
+                        <i class="fas fa-user-check" style="margin-right: 0.5rem;"></i>Create Account
+                    </button>
+                </form>
+
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e0e0e0; text-align: center;">
+                    <p style="margin: 0; color: #666666; font-size: 0.875rem;">
+                        Already have an account? <a href="{{ url_for('main.login') }}" style="color: #000000; text-decoration: none; font-weight: 600;">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

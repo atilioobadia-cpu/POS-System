@@ -1,19 +1,37 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from flask_login import login_user, logout_user, current_user, login_required
-from datetime import datetime
+from datetime import datetime, timedelta
 from app import db, bcrypt
 from app.models import User, Sale, Stock, Product  # Ensure Stock is imported correctly
 from app.forms import LoginForm, RegisterForm
 from collections import defaultdict  # Ensure defaultdict is imported
 from collections import OrderedDict
-import calendar 
+import calendar
+from functools import wraps 
 # Create blueprint
 main = Blueprint('main', __name__)
+
+# Session timeout decorator (2 minutes)
+def check_session_timeout(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if current_user.is_authenticated:
+            last_activity = session.get('last_activity')
+            if last_activity:
+                elapsed = datetime.now() - datetime.fromisoformat(last_activity)
+                if elapsed > timedelta(minutes=2):
+                    logout_user()
+                    session.clear()
+                    flash('Session expired due to inactivity. Please log in again.', 'warning')
+                    return redirect(url_for('main.login'))
+            session['last_activity'] = datetime.now().isoformat()
+        return f(*args, **kwargs)
+    return decorated_function
 
 # Context processor for footer year
 @main.app_context_processor
 def inject_now():
-    return {'current_year': datetime.now().year}
+    return {'current_year': datetime.now().year, 'switched_user': session.get('switched_user')}
 
 # Home redirects to login
 @main.route('/')
@@ -31,6 +49,8 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
+            session['last_activity'] = datetime.now().isoformat()
+            session['switched_user'] = False
             flash(f'Welcome back, {user.username}!', 'success')
             return redirect(url_for('main.dashboard'))
         else:
@@ -55,6 +75,7 @@ def register():
 
 @main.route('/dashboard')
 @login_required
+@check_session_timeout
 def dashboard():
     # Fetch statistics
     total_sales_today = db.session.query(Sale).filter(Sale.date == datetime.today().date()).count()
@@ -311,9 +332,52 @@ def revenue():
 @main.route('/logout')
 @login_required
 def logout():
+    # Check if user was switched, clear session
+    session.clear()
     logout_user()
     flash('You have been logged out.', 'info')
     return redirect(url_for('main.login'))
+
+# Admin Panel Route
+@main.route('/admin')
+@login_required
+@check_session_timeout
+def admin():
+    # Check if current user is admin
+    if current_user.role != 'admin':
+        flash('Access denied. Admin only.', 'danger')
+        return redirect(url_for('main.dashboard'))
+    
+    # Fetch all users
+    users = User.query.all()
+    return render_template('admin.html', users=users)
+
+# Switch to User Route (Admin only)
+@main.route('/switch_to_user/<int:user_id>')
+@login_required
+@check_session_timeout
+def switch_to_user(user_id):
+    # Check if current user is admin
+    if current_user.role != 'admin':
+        flash('Access denied. Admin only.', 'danger')
+        return redirect(url_for('main.dashboard'))
+    
+    # Get the user to switch to
+    user_to_switch = User.query.get_or_404(user_id)
+    
+    # Store the original admin user ID in session
+    session['original_admin'] = current_user.id
+    session['switched_user'] = True
+    
+    # Log out current admin
+    logout_user()
+    
+    # Log in as the selected user
+    login_user(user_to_switch)
+    session['last_activity'] = datetime.now().isoformat()
+    
+    flash(f'Switched to {user_to_switch.username}. You will be logged out in 2 minutes.', 'info')
+    return redirect(url_for('main.dashboard'))
 # Employees Route
 @main.route('/employees')
 @login_required
