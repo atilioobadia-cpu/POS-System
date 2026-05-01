@@ -2,7 +2,7 @@
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![Made in Kenya](https://img.shields.io/badge/Made%20in-Kenya-success)](https://www.linkedin.com/in/atilio-obadia/)
+[![Made in Tanzania](https://img.shields.io/badge/Made%20in-Tanzania-success)](https://www.linkedin.com/in/atilio-obadia/)
 [![Status](https://img.shields.io/badge/status-Active-brightgreen)](https://github.com/kisilumueti/Offline-POS-System)
 
 > An easy-to-use, offline-ready Point of Sale system built with Python, Flask, and SQLite. Designed for small businesses, shops, and cyber cafes in Kenya and beyond.
