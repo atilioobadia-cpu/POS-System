@@ -56,8 +56,8 @@
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/kisilumueti/python-offline-pos.git
-cd python-offline-pos
+git clone https://github.com/atilioobadia-cpu/POS-System.git
+cd POS-System
 
 2️⃣ Create a Virtual Environment
 bash
@@ -136,11 +136,11 @@ Johnbosco Mueti (johnosco)
 
 💼 LinkedIn
 
-📧 Email: muetijohnbosco35@gmail.com
+📧 Email: atilioobadia@gmail.com
 
-📱 WhatsApp: +254 716 005166
+📱 WhatsApp: +255 773 500811
 
-📸 Instagram: @techkenya_
+📸 Instagram: @_atilio255
 
 📄 License
 This project is licensed under the MIT License — free to use, modify, and distribute.
