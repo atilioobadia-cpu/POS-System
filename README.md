@@ -1,9 +1,9 @@
-# 🛒 Python Offline POS System (Flask + SQLite)
+# 🛒 Smart Offline POS System
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![Made in Kenya](https://img.shields.io/badge/Made%20in-Kenya-success)](https://www.linkedin.com/in/johnboscokisilumueti/)
-[![Status](https://img.shields.io/badge/status-Active-brightgreen)](https://github.com/kisilumueti/python-offline-pos)
+[![Made in Tanzania](https://img.shields.io/badge/Made%20in-Tanzania-success)](https://www.linkedin.com/in/atilio-obadia/)
+[![Status](https://img.shields.io/badge/status-Active-brightgreen)](https://github.com/kisilumueti/Offline-POS-System)
 
 > An easy-to-use, offline-ready Point of Sale system built with Python, Flask, and SQLite. Designed for small businesses, shops, and cyber cafes in Kenya and beyond.
 
@@ -56,8 +56,8 @@
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/kisilumueti/python-offline-pos.git
-cd python-offline-pos
+git clone https://github.com/atilioobadia-cpu/POS-System.git
+cd POS-System
 
 2️⃣ Create a Virtual Environment
 bash
@@ -136,11 +136,11 @@ Johnbosco Mueti (johnosco)
 
 💼 LinkedIn
 
-📧 Email: muetijohnbosco35@gmail.com
+📧 Email: atilioobadia@gmail.com
 
-📱 WhatsApp: +254 716 005166
+📱 WhatsApp: +255 773 500811
 
-📸 Instagram: @techkenya_
+📸 Instagram: @_atilio255
 
 📄 License
 This project is licensed under the MIT License — free to use, modify, and distribute.
