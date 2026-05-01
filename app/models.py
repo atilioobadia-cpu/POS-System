@@ -20,7 +20,7 @@ class Sale(db.Model):
     amount = db.Column(db.Float, nullable=False)
     date = db.Column(db.Date, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # ForeignKey to User
-    user = db.relationship('User', backref=db.backref('sales', lazy=True))  # Relationship with User
+    user = db.relationship('User', backref=db.backref('sales', cascade='all, delete', lazy=True))  # Relationship with User
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)  # ForeignKey to Product
     product = db.relationship('Product', backref=db.backref('sales', lazy=True))  # Relationship with Product
     quantity = db.Column(db.Integer, nullable=False)
