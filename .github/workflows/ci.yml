@@ -1,4 +1,5 @@
 name: CI
+# Shared checks are maintained centrally in atilioobadia-cpu/dev-lab.
 
 on:
   push:
