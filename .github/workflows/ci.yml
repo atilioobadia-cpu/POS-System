@@ -1,4 +1,5 @@
 name: CI
+# Shared workflow includes a stable aggregate check for branch protection.
 
 # Reusable CI template revision: 1b557ee
 
